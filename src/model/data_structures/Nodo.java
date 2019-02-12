@@ -17,12 +17,18 @@ public class Nodo<T>
 	 */
 	private Nodo<T> siguiente;
 	
+	/**
+	 * Relación de cola/pila en lista doblemente encadenada
+	 */
+	private Nodo<T> anterior;
+	
 	//Método Constructor
 	public Nodo (T pElemento)
 	{
 		//Para construir un nodo es necesario conocer el elemento de entrada, si es primero o ultimo.
 		elemento= pElemento;
 		siguiente = null; //El nodo siguiente no es contruido pero debe ser inmediatamente asignado
+		anterior = null; //El nodo siguiente no es contruido pero debe ser inmediatamente asignado
 	}
 
 	//Métodos del nodo
@@ -33,6 +39,14 @@ public class Nodo<T>
 	public void setSiguiente(Nodo<T> nuevoSiguiente)
 	{
 		siguiente =nuevoSiguiente;
+	}
+	
+	/**
+	 * método encargado de reasignar el nodo siguiente. 
+	 */
+	public void setAnterior(Nodo<T> nuevoAnterior)
+	{
+		siguiente =nuevoAnterior;
 	}
 	
 	/**
@@ -52,28 +66,14 @@ public class Nodo<T>
 	}
 	
 	/**
-	 * método para enqueue un nuevo elemento estando en el último nodo. 
-	 *@param  nuevoUltimo tiene inicializacion primero= false, ultimo =true
+	 * método que retorna el nodo anterior. 
 	 */
-	public void enqueue(T elemento)
+	public Nodo<T> darAnterior()
 	{
-		Nodo<T> nuevoUltimo= new Nodo(elemento);
-		nuevoUltimo.setSiguiente(siguiente); //el siguiente nodo al último es el primero, por lo tanto se añade inicialmente
-		setSiguiente(nuevoUltimo); //el nodo primero tiene como nuevo anterior el nuevo nodo		
+		return anterior;
 	}
-
-	/**
-	 * método para dequeue el primer elemento estando en el último elemento. 
-	 *@return elemento retorna el elemento T del nodo eliminado.
-	 */
-	public T dequeue()
-	{
-		T elElemento = siguiente.darElemento();
-		setSiguiente(siguiente.darSiguiente()); //se elimina la relación del último con el antiguo primero.
-		return elElemento;
-	}
-
-
-
-
+	
 }
+
+	
+	
