@@ -2,7 +2,7 @@ package model.data_structures;
 
 /** Clase que permite el almacenamiento de nodos genericos en colas
  */
-public class Queue<T> 
+public class Queue<T> implements IQueue
 {
 	//Atributos
 
@@ -32,6 +32,24 @@ public class Queue<T>
 
 	//Métodos del Queue
 
+	/**
+	 * Retorna true si la Cola esta vacia
+	 * @return true si la Cola esta vacia, false de lo contrario
+	 */
+	public boolean isEmpty();
+	{
+		return primero==null;
+	}
+	
+	/**
+	 * Retorna el numero de elementos contenidos
+	 * @return el numero de elemntos contenidos
+	 */
+	public int size();
+	{
+		return cantidad;
+	}
+	
 	/**
 	 * método para enqueue un nuevo elemento estando en el último nodo. 
 	 *@param  nuevoUltimo tiene inicializacion primero= false, ultimo =true
