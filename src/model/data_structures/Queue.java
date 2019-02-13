@@ -1,8 +1,10 @@
 package model.data_structures;
 
+import java.util.Iterator;
+
 /** Clase que permite el almacenamiento de nodos genericos en colas
  */
-public class Queue<T> implements IQueue
+public class Queue<T> implements IQueue<T>
 {
 	//Atributos
 
@@ -36,8 +38,7 @@ public class Queue<T> implements IQueue
 	 * Retorna true si la Cola esta vacia
 	 * @return true si la Cola esta vacia, false de lo contrario
 	 */
-	public boolean isEmpty();
-	{
+	public boolean isEmpty(){
 		return primero==null;
 	}
 	
@@ -45,8 +46,7 @@ public class Queue<T> implements IQueue
 	 * Retorna el numero de elementos contenidos
 	 * @return el numero de elemntos contenidos
 	 */
-	public int size();
-	{
+	public int size(){
 		return cantidad;
 	}
 	
@@ -54,9 +54,9 @@ public class Queue<T> implements IQueue
 	 * método para enqueue un nuevo elemento estando en el último nodo. 
 	 *@param  nuevoUltimo tiene inicializacion primero= false, ultimo =true
 	 */
-	public void enqueue(T elemento)
+	public void enqueue(T pElemento)
 	{
-		Nodo<T> nuevoUltimo= new Nodo(elemento);
+		Nodo<T> nuevoUltimo= new Nodo<T>(pElemento);
 		if(ultimo!=null)
 		{
 			nuevoUltimo.setSiguiente(primero); //el siguiente nodo al nuevo último es el primero.
@@ -70,7 +70,7 @@ public class Queue<T> implements IQueue
 			nuevoUltimo.setSiguiente(nuevoUltimo); //el nodo se asocia a él mismo para poder operarse
 			nuevoUltimo.setAnterior(nuevoUltimo);
 			primero = nuevoUltimo;
-			ultimo = nuevoPrimero;
+			ultimo = nuevoUltimo;
 		}
 		cantidad++;
 	}
@@ -98,6 +98,9 @@ public class Queue<T> implements IQueue
 		
 	}
 
+	public Iterador<T> iterator() {
+		return new Iterador<T>(primero);
+	}
 
 
 

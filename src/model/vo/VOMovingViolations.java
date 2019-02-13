@@ -5,38 +5,59 @@ package model.vo;
  */
 public class VOMovingViolations {
 
+	private int Id;
+	private String location; 
+	private String ticketIssueDate;
+	private int totalpaid; 
+	private String accidenIndicator; 
+	private String description; 
+	private String violationcode; 
+	private double fineAMT;
+
+
+	public VOMovingViolations(int pId, String pLocation, String pTicketIssueDate, int pTotoalpaid, String pAccidentIndicator, String pDescription, String pViolationCode, double pfineAMT){
+		Id=pId;
+		location=pLocation;
+		ticketIssueDate=pTicketIssueDate;
+		totalpaid=pTotoalpaid;
+		accidenIndicator=pAccidentIndicator;
+		description=pDescription; 		
+		violationcode=pViolationCode; 
+		fineAMT=pfineAMT;
+	}
+	
 	
 	/**
-	 * @return id - Identificador Ãºnico de la infracciÃ³n
+	 * @return id - Identificador único de la infracción
 	 */
 	public int objectId() {
 		// TODO Auto-generated method stub
-		return 0;
+		return Id;
 	}	
 	
 	
 	/**
-	 * @return location - DirecciÃ³n en formato de texto.
+	 * @return location - Dirección en formato de texto.
 	 */
 	public String getLocation() {
 		// TODO Auto-generated method stub
-		return "";
+		return location; 
 	}
 
 	/**
-	 * @return date - Fecha cuando se puso la infracciÃ³n .
+	 * @return date - Fecha cuando se puso la infracción .
 	 */
 	public String getTicketIssueDate() {
 		// TODO Auto-generated method stub
-		return "";
+		return ticketIssueDate;
 	}
 	
 	/**
-	 * @return totalPaid - Cuanto dinero efectivamente pagÃ³ el que recibiÃ³ la infracciÃ³n en USD.
+	 * @return totalPaid - Cuanto dinero efectivamente pagó el que recibió la infracción en USD.
 	 */
 	public int getTotalPaid() {
 		// TODO Auto-generated method stub
-		return 0;
+		return totalpaid;
 	}
 	
 	/**
@@ -44,14 +65,22 @@ public class VOMovingViolations {
 	 */
 	public String  getAccidentIndicator() {
 		// TODO Auto-generated method stub
-		return "";
+		return accidenIndicator; 
 	}
 		
 	/**
-	 * @return description - DescripciÃ³n textual de la infracciÃ³n.
+	 * @return description - Descripción textual de la infracción.
 	 */
 	public String  getViolationDescription() {
 		// TODO Auto-generated method stub
-		return "";
+		return description;
+	}
+	public String getViolationCode(){
+		return violationcode;
+	}
+	
+	public double getFINEAMT() {
+		return fineAMT;
 	}
 }
+
