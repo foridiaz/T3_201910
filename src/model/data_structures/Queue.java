@@ -9,30 +9,30 @@ public class Queue<T> implements IQueue<T>
 	//Atributos
 
 	/**
-	 * Primer nodo para operación
+	 * Primer nodo para operaciÃ³n
 	 */
 	public Nodo<T> primero;
 	
 	/**
-	 * Último nodo para operación
+	 * Ãšltimo nodo para operaciÃ³n
 	 */
-	private Nodo<T> ultimo;
+	public Nodo<T> ultimo;
 	
 	/**
-	 * tamaño de la cola
+	 * tamaÃ±o de la cola
 	 */
-	private int cantidad;
+	public int cantidad;
 	
-	//Método Constructor
+	//MÃ©todo Constructor
 	public Queue ()
 	{
-		//Inicializa el primer y último nodo como vacío, y la cantidad como 0.
+		//Inicializa el primer y Ãºltimo nodo como vacÃ­o, y la cantidad como 0.
 		primero= null;
 		ultimo = null;
 		cantidad= 0;
 	}
 
-	//Métodos del Queue
+	//MÃ©todos del Queue
 
 	/**
 	 * Retorna true si la Cola esta vacia
@@ -51,59 +51,75 @@ public class Queue<T> implements IQueue<T>
 	}
 	
 	/**
-	 * método para enqueue un nuevo elemento estando en el último nodo. 
+	 * mÃ©todo para enqueue un nuevo elemento estando en el Ãºltimo nodo. 
 	 *@param  nuevoUltimo tiene inicializacion primero= false, ultimo =true
 	 */
 	public void enqueue(T pElemento)
 	{
+		
 		Nodo<T> nuevoUltimo= new Nodo<T>(pElemento);
-		if(ultimo!=null)
+		if(primero!=null && ultimo==null)
 		{
-			nuevoUltimo.setSiguiente(primero); //el siguiente nodo al nuevo último es el primero.
-			nuevoUltimo.setAnterior(ultimo); //el nodo anterior al nuevo último es el último.
-			ultimo.setSiguiente(nuevoUltimo); //se actualiza el siguiente del antiguo último.
-			primero.setAnterior(nuevoUltimo); //se actualiza el nodo anterior del primer nodo.
-			ultimo = nuevoUltimo; //se actualiza el último nodo. 
+			ultimo= nuevoUltimo;
+			primero.setAnterior(nuevoUltimo);
+			primero.setSiguiente(nuevoUltimo);
+			ultimo.setSiguiente(primero); //el nodo se asocia a Ã©l mismo para poder operarse
+			ultimo.setAnterior(primero);
 		}
+		else if(primero!=null && ultimo!=null)
+		{	
+			nuevoUltimo.setSiguiente(primero); //el siguiente nodo al nuevo Ãºltimo es el primero.
+			nuevoUltimo.setAnterior(ultimo); //el nodo anterior al nuevo Ãºltimo es el Ãºltimo.
+			ultimo.setSiguiente(nuevoUltimo); //se actualiza el siguiente del antiguo Ãºltimo.
+			primero.setAnterior(nuevoUltimo); //se actualiza el nodo anterior del primer nodo.
+			ultimo = nuevoUltimo; //se actualiza el Ãºltimo nodo. 
+		}
+
 		else
 		{
-			nuevoUltimo.setSiguiente(nuevoUltimo); //el nodo se asocia a él mismo para poder operarse
-			nuevoUltimo.setAnterior(nuevoUltimo);
-			primero = nuevoUltimo;
-			ultimo = nuevoUltimo;
+			primero = nuevoUltimo;			
 		}
 		cantidad++;
 	}
 
 	/**
-	 * método para dequeue el primer elemento. La lista tiene al menos un elemento 
+	 * mÃ©todo para dequeue el primer elemento. La lista tiene al menos un elemento 
 	 *@return elemento retorna el elemento T del nodo eliminado.
 	 */
 	public T dequeue()
 	{
-		T elElemento = primero.darElemento(); //se obtiene el elemento del primer nodo.
-		if(primero!=ultimo) //caso cantidad>1
+
+		if(primero!=null) //caso cantidad>1
 		{	
-			ultimo.setSiguiente(primero.darSiguiente()); //se elimina la relación del último con el antiguo primero.
-			primero.darSiguiente().setAnterior(ultimo); //se actualiza el nodo anterior del segundo nodo
-			primero= primero.darSiguiente(); //se asigna el segundo nodo como nuevo primer nodo.	
-		}
-		else
-		{
-			primero= null;
-			ultimo= null;
+			if(primero!=ultimo)
+			{
+				T elElemento = primero.darElemento(); //se obtiene el elemento del primer nodo.
+				ultimo.setSiguiente(primero.darSiguiente()); //se elimina la relaciÃ³n del Ãºltimo con el antiguo primero.
+				primero.darSiguiente().setAnterior(ultimo); //se actualiza el nodo anterior del segundo nodo
+				primero= primero.darSiguiente(); //se asigna el segundo nodo como nuevo primer nodo.
+				return elElemento;
+				
+			}
+
+			else
+			{
+				T elElemento = primero.darElemento(); //se obtiene el elemento del primer nodo.
+				primero= null;
+				ultimo= null;
+				return elElemento;
+			}
+			
+			
 		}
 		cantidad--;
-		return elElemento;
-		
+		return null;
 	}
 
 	public Iterador<T> iterator() {
 		return new Iterador<T>(primero);
 	}
-	
-	public Nodo<T> darprimero(){
-		return primero; 
-	}
+
+
 
 }
+
