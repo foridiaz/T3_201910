@@ -11,7 +11,7 @@ public class Queue<T> implements IQueue<T>
 	/**
 	 * Primer nodo para operación
 	 */
-	private Nodo<T> primero;
+	public Nodo<T> primero;
 	
 	/**
 	 * Último nodo para operación
@@ -101,7 +101,9 @@ public class Queue<T> implements IQueue<T>
 	public Iterador<T> iterator() {
 		return new Iterador<T>(primero);
 	}
-
-
+	
+	public Nodo<T> darprimero(){
+		return primero; 
+	}
 
 }

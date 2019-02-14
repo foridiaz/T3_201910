@@ -11,6 +11,7 @@ import com.sun.corba.se.impl.orbutil.graph.Node;
 import model.data_structures.IQueue;
 import model.data_structures.IStack;
 import model.data_structures.Iterador;
+
 import model.data_structures.Queue;
 import model.data_structures.Stack;
 import model.vo.VODaylyStatistic;
@@ -109,8 +110,6 @@ public class Controller {
 					}
 				}
 			}
-
-
 		}
 	}
 
@@ -124,7 +123,8 @@ public class Controller {
 			int numInfracciones=0;
 			int numAccidentes=0;
 			double numafintotal=0;
-			while(iter.hasNext()) {
+			int vez=0; 
+			while(vez<movingViolationsQueue.size()) {
 				System.out.println("g");
 				while(actual.getTicketIssueDate().split("T")[0].equals(fecha)) {
 					System.out.println(fecha);
@@ -133,6 +133,7 @@ public class Controller {
 					if(actual.getAccidentIndicator().equals("Yes")) {
 						numAccidentes++;
 					}
+					vez++; 
 					actual=iter.next();
 				}
 				lista.enqueue(new VODaylyStatistic(fecha, numAccidentes, numInfracciones, numafintotal));
@@ -147,7 +148,17 @@ public class Controller {
 	}
 
 	public IStack <VOMovingViolations> nLastAccidents(int n) {
-		// TODO
-		return null;
+		IStack<VOMovingViolations> lista=new Stack<>();
+		Iterador<VOMovingViolations> iter=(Iterador<VOMovingViolations>) movingViolationsQueue.iterator();
+		VOMovingViolations actual=iter.next();
+		while(n>0&&iter.hasNext()){
+			if(actual.getAccidentIndicator().equals("Yes")){
+				lista.push(actual);
+				n--;
+			}
+			actual=iter.next();
+		}
+
+		return lista;
 	}
 }
