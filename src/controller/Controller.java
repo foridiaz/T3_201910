@@ -55,7 +55,7 @@ public class Controller {
 			{
 			case 1:
 				this.loadMovingViolations();
-			System.out.println(movingViolationsQueue.size()+""+movingViolationsStack.size());
+				System.out.println(movingViolationsQueue.size()+""+movingViolationsStack.size());
 				break;
 
 			case 2:
@@ -116,40 +116,37 @@ public class Controller {
 	public IQueue <VODaylyStatistic> getDailyStatistics () {
 		IQueue<VODaylyStatistic> lista= new Queue<VODaylyStatistic>();
 		Iterador<VOMovingViolations> iter=(Iterador<VOMovingViolations>) movingViolationsQueue.iterator();
-		if(iter.hasNext()) {
-			VOMovingViolations actual=(VOMovingViolations)iter.next();
-			String fecha=actual.getTicketIssueDate().split("T")[0];
-			System.out.println(fecha);
-			int numInfracciones=0;
-			int numAccidentes=0;
-			double numafintotal=0;
-			int vez=0; 
-			while(vez<movingViolationsQueue.size()) {
-				System.out.println("g");
-				while(actual.getTicketIssueDate().split("T")[0].equals(fecha)) {
-					System.out.println(fecha);
-					numafintotal+=actual.getFINEAMT();
-					numInfracciones++;
-					if(actual.getAccidentIndicator().equals("Yes")) {
-						numAccidentes++;
+				if(iter.hasNext()) {
+					VOMovingViolations actual=(VOMovingViolations)iter.next();
+					String fecha=actual.getTicketIssueDate().split("T")[0];
+					int numInfracciones=0;
+					int numAccidentes=0;
+					double numafintotal=0;
+					int vez=0; 
+					while(vez<movingViolationsQueue.size()) {
+						while(actual.getTicketIssueDate().split("T")[0].equals(fecha)) {
+							numafintotal+=actual.getFINEAMT();
+							numInfracciones++;
+							if(actual.getAccidentIndicator().equals("Yes")) {
+								numAccidentes++;
+							}
+							vez++; 
+							actual=iter.next();
+						}
+						lista.enqueue(new VODaylyStatistic(fecha, numAccidentes, numInfracciones, numafintotal));
+						numAccidentes=0;
+						numafintotal=0;
+						numInfracciones=0;
+						fecha=actual.getTicketIssueDate().split("T")[0];
 					}
-					vez++; 
-					actual=iter.next();
+					return lista; 
 				}
-				lista.enqueue(new VODaylyStatistic(fecha, numAccidentes, numInfracciones, numafintotal));
-				numAccidentes=0;
-				numafintotal=0;
-				numInfracciones=0;
-				fecha=actual.getTicketIssueDate().split("T")[0];
-			}
-			return lista; 
-		}
-		return lista;
+				return lista;
 	}
 
 	public IStack <VOMovingViolations> nLastAccidents(int n) {
 		IStack<VOMovingViolations> lista=new Stack<>();
-		Iterador<VOMovingViolations> iter=(Iterador<VOMovingViolations>) movingViolationsQueue.iterator();
+		Iterador<VOMovingViolations> iter=(Iterador<VOMovingViolations>) movingViolationsStack.iterator();
 		VOMovingViolations actual=iter.next();
 		while(n>0&&iter.hasNext()){
 			if(actual.getAccidentIndicator().equals("Yes")){

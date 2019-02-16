@@ -24,10 +24,14 @@ public class MovingViolationsManagerView
 	
 	public void printDailyStatistics(IQueue<VODaylyStatistic> dailyStatistics) {
 		System.out.println("Se encontraron "+ dailyStatistics.size() + " elementos");
+		int vez=0; 
 		for (VODaylyStatistic dayStatistic : dailyStatistics) 
 		{
-			//TODO
-			System.out.println("2018-01-01 - accidentes:	100,	infracciones:	200,	multas totales:	$10,000  " );;
+			System.out.println(dayStatistic.darFecha()+"- accidentes:"+dayStatistic.darAccidente()+",	infracciones:"	+dayStatistic.darInfracciones()+",	multas totales:"+dayStatistic.darTotalFineAMT() );;
+			vez++; 
+			if(vez==dailyStatistics.size()){
+				break; 
+			}
 		}
 	}
 	

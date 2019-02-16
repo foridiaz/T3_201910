@@ -46,7 +46,7 @@ public class Nodo<T>
 	 */
 	public void setAnterior(Nodo<T> nuevoAnterior)
 	{
-		siguiente =nuevoAnterior;
+		anterior =nuevoAnterior;
 	}
 	
 	/**

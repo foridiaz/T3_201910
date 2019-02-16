@@ -67,6 +67,8 @@ public class TestQueue extends TestCase{
      * Recuperación 1
      */
     private VOMovingViolations pRecuperado1a;
+    
+    private Stack<Integer> pila; 
 
     // -----------------------------------------------------------------
     // Métodos
@@ -77,9 +79,9 @@ public class TestQueue extends TestCase{
 	public void setUp() throws Exception
 	{
 		//Inicialización de enqueuer, dequeuer y dequeuer1
-		enqueuer=new Queue();
-		dequeuer=new Queue();
-		dequeuer1=new Queue();
+		enqueuer=new Queue<>();
+		dequeuer=new Queue<>();
+		dequeuer1=new Queue<>();
 		
 		//Inicialización de elementos y enqueue
 		System.out.println("Codigo de iniciacion");
@@ -113,12 +115,6 @@ public class TestQueue extends TestCase{
 	@Test
 	public void test() 
 	{
-		try
-		{
-			setUp();
-		} catch (Exception e) {
-			System.out.println("hubo un error inesperado... imposible?");
-		}
 		//IMPRIMO REFERENCIAS Y OBJETOS EN LA COLA... PERO HONESTAMENTE NO SE QUE PUEDE ESTAR MAL...
 		System.out.println(pElemento1);
 		System.out.println(pElemento2);
